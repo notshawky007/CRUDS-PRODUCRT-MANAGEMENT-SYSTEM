@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #222831;
+  color: #eeeeee;
+}
+
+.crud {
+  width: 80%;
+  margin: auto;
+}
+
+.head {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.head h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.head p {
+  font-size: 18px;
+  font-weight: 300;
+}
