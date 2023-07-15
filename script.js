@@ -43,6 +43,12 @@ function createProduct() {
   dataProduct.push(product);
   localStorage.setItem("dataProduct", JSON.stringify(dataProduct));
   alert("Product added successfully");
+  //clear data after submit
+  clearData();
+}
+
+//clear data after submit
+function clearData() {
   title.value = "";
   price.value = "";
   taxes.value = "";
