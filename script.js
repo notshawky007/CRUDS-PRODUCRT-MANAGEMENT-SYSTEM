@@ -19,3 +19,28 @@ function getTotal() {
     total.style.backgroundColor = "red";
   }
 }
+
+//create new product
+function createProduct() {
+  let dataProduct;
+  if (localStorage.getItem("dataProduct") === null) {
+    //check if there is data in local storage
+    dataProduct = [];
+  } else {
+    dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
+  }
+  let product = {
+    name: name.value,
+    price: price.value,
+    taxes: taxes.value,
+    ads: ads.value,
+    discount: discount.value,
+    total: total.innerHTML,
+    count: count.value,
+    category: category.value,
+  };
+  dataProduct.push(product);
+  localStorage.setItem("dataProduct", JSON.stringify(dataProduct));
+  alert("Product added successfully");
+  location.reload();
+}
