@@ -8,9 +8,9 @@ let count = document.getElementById("count");
 let category = document.getElementById("category");
 let submit = document.getElementById("submit");
 
-//get total price
+// get total price
 function getTotal() {
-  if (price.value != "") {
+  if (price.value !== "") {
     let result = +price.value + +taxes.value + +ads.value - +discount.value;
     total.innerHTML = result;
     total.style.backgroundColor = "green";
@@ -20,12 +20,11 @@ function getTotal() {
   }
 }
 
-//create new product
-
+// create new product
 function createProduct() {
   let dataProduct;
   if (localStorage.getItem("dataProduct") === null) {
-    //check if there is data in local storage
+    // check if there is data in local storage
     dataProduct = [];
   } else {
     dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
@@ -43,13 +42,13 @@ function createProduct() {
   dataProduct.push(product);
   localStorage.setItem("dataProduct", JSON.stringify(dataProduct));
   alert("Product added successfully");
-  //clear data after submit
+  // clear data after submit
   clearData();
-  //show data in table
+  // show data in table
   showData();
 }
 
-//clear data after submit
+// clear data after submit
 function clearData() {
   title.value = "";
   price.value = "";
@@ -61,129 +60,137 @@ function clearData() {
   category.value = "";
 }
 
-//show data in table
+// show data in table
 function showData() {
   let table = "";
-  for (let i = 0; i < dataProduct.length; i++) {
-    table += `<tr>
-              <td>${i + 1}</td>
-              <td>${dataProduct[i].title}</td>
-              <td>${dataProduct[i].price}</td>
-              <td>${dataProduct[i].taxes}</td>
-              <td>${dataProduct[i].ads}</td>
-              <td>${dataProduct[i].discount}</td>
-              <td>${dataProduct[i].total}</td>
-              <td>${dataProduct[i].category}</td>
-              <td>
-                <button type="button" class="button" id="update">
-                  <span class="button__text">Update</span>
-                  <span class="button__icon"
-                    ><svg
-                      class="svg"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M35.3 12.7c-2.89-2.9-6.88-4.7-11.3-4.7-8.84 0-15.98 7.16-15.98 16s7.14 16 15.98 16c7.45 0 13.69-5.1 15.46-12h-4.16c-1.65 4.66-6.07 8-11.3 8-6.63 0-12-5.37-12-12s5.37-12 12-12c3.31 0 6.28 1.38 8.45 3.55l-6.45 6.45h14v-14l-4.7 4.7z"
-                      ></path>
-                      <path d="M0 0h48v48h-48z" fill="none"></path></svg
-                  ></span>
-                </button>
-              </td>
-              <td>
-                <button type="button" class="button" id="delete">
-                  <span class="button__text">Delete</span>
-                  <span class="button__icon"
-                    ><svg
-                      class="svg"
-                      height="512"
-                      viewBox="0 0 512 512"
-                      width="512"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <title></title>
-                      <path
-                        d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320"
-                        style="
-                          fill: none;
-                          stroke: #fff;
-                          stroke-linecap: round;
-                          stroke-linejoin: round;
-                          stroke-width: 32px;
-                        "
-                      ></path>
-                      <line
-                        style="
-                          stroke: #fff;
-                          stroke-linecap: round;
-                          stroke-miterlimit: 10;
-                          stroke-width: 32px;
-                        "
-                        x1="80"
-                        x2="432"
-                        y1="112"
-                        y2="112"
-                      ></line>
-                      <path
-                        d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40"
-                        style="
-                          fill: none;
-                          stroke: #fff;
-                          stroke-linecap: round;
-                          stroke-linejoin: round;
-                          stroke-width: 32px;
-                        "
-                      ></path>
-                      <line
-                        style="
-                          fill: none;
-                          stroke: #fff;
-                          stroke-linecap: round;
-                          stroke-linejoin: round;
-                          stroke-width: 32px;
-                        "
-                        x1="256"
-                        x2="256"
-                        y1="176"
-                        y2="400"
-                      ></line>
-                      <line
-                        style="
-                          fill: none;
-                          stroke: #fff;
-                          stroke-linecap: round;
-                          stroke-linejoin: round;
-                          stroke-width: 32px;
-                        "
-                        x1="184"
-                        x2="192"
-                        y1="176"
-                        y2="400"
-                      ></line>
-                      <line
-                        style="
-                          fill: none;
-                          stroke: #fff;
-                          stroke-linecap: round;
-                          stroke-linejoin: round;
-                          stroke-width: 32px;
-                        "
-                        x1="328"
-                        x2="320"
-                        y1="176"
-                        y2="400"
-                      ></line></svg
-                  ></span>
-                </button>
-              </td>
-            </tr>
-            `;
+  let dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
+  if (dataProduct !== null) {
+    for (let i = 0; i < dataProduct.length; i++) {
+      table += `<tr>
+                <td>${i + 1}</td>
+                <td>${dataProduct[i].title}</td>
+                <td>${dataProduct[i].price}</td>
+                <td>${dataProduct[i].taxes}</td>
+                <td>${dataProduct[i].ads}</td>
+                <td>${dataProduct[i].discount}</td>
+                <td>${dataProduct[i].total}</td>
+                <td>${dataProduct[i].category}</td>
+                <td>
+                  <button type="button" class="button" id="update">
+                    <span class="button__text">Update</span>
+                    <span class="button__icon"
+                      ><svg
+                        class="svg"
+                        height="48"
+                        viewBox="0 0 48 48"
+                        width="48"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M35.3 12.7c-2.89-2.9-6.88-4.7-11.3-4.7-8.84 0-15.98 7.16-15.98 16s7.14 16 15.98 16c7.45 0 13.69-5.1 15.46-12h-4.16c-1.65 4.66-6.07 8-11.3 8-6.63 0-12-5.37-12-12s5.37-12 12-12c3.31 0 6.28 1.38 8.45 3.55l-6.45 6.45h14v-14l-4.7 4.7z"
+                        ></path>
+                        <path d="M0 0h48v48h-48z" fill="none"></path></svg
+                    ></span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="button" id="delete">
+                    <span class="button__text">Delete</span>
+                    <span class="button__icon"
+                      ><svg
+                        class="svg"
+                        height="512"
+                        viewBox="0 0 512 512"
+                        width="512"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <title></title>
+                        <path
+                          d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320"
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                        ></path>
+                        <line
+                          style="
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-miterlimit: 10;
+                            stroke-width: 32px;
+                          "
+                          x1="80"
+                          x2="432"
+                          y1="112"
+                          y2="112"
+                        ></line>
+                        <path
+                          d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40"
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                        ></path>
+                        <line
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                          x1="256"
+                          x2="256"
+                          y1="176"
+                          y2="400"
+                        ></line>
+                        <line
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                          x1="184"
+                          x2="192"
+                          y1="176"
+                          y2="400"
+                        ></line>
+                        <line
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                          x1="328"
+                          x2="320"
+                          y1="176"
+                          y2="400"
+                        ></line></svg
+                    ></span>
+                  </button>
+                </td>
+              </tr>
+              `;
+    }
   }
   document.getElementById("tbody").innerHTML = table;
 }
 
-showData();
+// call the getTotal function when the input values change
+price.addEventListener("input", getTotal);
+taxes.addEventListener("input", getTotal);
+ads.addEventListener("input", getTotal);
+discount.addEventListener("input", getTotal);
 
+// add event listener to the submit button
 submit.addEventListener("click", createProduct);
