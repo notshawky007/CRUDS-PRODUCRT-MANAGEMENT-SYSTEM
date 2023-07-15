@@ -1,4 +1,4 @@
-let name = document.getElementById("name");
+let title = document.getElementById("title");
 let price = document.getElementById("price");
 let taxes = document.getElementById("taxes");
 let ads = document.getElementById("ads");
@@ -21,6 +21,7 @@ function getTotal() {
 }
 
 //create new product
+
 function createProduct() {
   let dataProduct;
   if (localStorage.getItem("dataProduct") === null) {
@@ -30,7 +31,7 @@ function createProduct() {
     dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
   }
   let product = {
-    name: name.value,
+    title: title.value,
     price: price.value,
     taxes: taxes.value,
     ads: ads.value,
@@ -42,5 +43,14 @@ function createProduct() {
   dataProduct.push(product);
   localStorage.setItem("dataProduct", JSON.stringify(dataProduct));
   alert("Product added successfully");
-  location.reload();
+  title.value = "";
+  price.value = "";
+  taxes.value = "";
+  ads.value = "";
+  discount.value = "";
+  total.innerHTML = "";
+  count.value = "";
+  category.value = "";
 }
+
+submit.addEventListener("click", createProduct);
