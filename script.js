@@ -185,9 +185,9 @@ function showData() {
   }
   document.getElementById("tbody").innerHTML = table;
 
-  let deleteBtn = document.querySelectorAll("#deleteAll")[0];
-  if (dataProduct.length == 0) {
-    deleteBtn.innerHTML = `<button onclick="deleteAll()" type="button" class="button" id="delete">
+  let deleteBtn = document.getElementById("deleteAll");
+  if (dataProduct.length > 0) {
+    deleteBtn.innerHTML = `<button onclick="deleteAllProduct()" type="button" class="button" id="delete">
                     <span class="button__text">Delete ALL</span>
                     <span class="button__icon"
                       ><svg
