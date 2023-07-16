@@ -7,6 +7,7 @@ let total = document.getElementById("total");
 let count = document.getElementById("count");
 let category = document.getElementById("category");
 let submit = document.getElementById("submit");
+let deleteBtn = document.getElementById("deleteAll");
 
 // get total price
 function getTotal() {
@@ -94,7 +95,7 @@ function showData() {
                   </button>
                 </td>
                 <td>
-                  <button onclick="deleteProduct(${i} )" type="button" class="button" id="delete">
+                  <button onclick="deleteProduct(${i})" type="button" class="button" id="delete">
                     <span class="button__text">Delete</span>
                     <span class="button__icon"
                       ><svg
@@ -185,7 +186,6 @@ function showData() {
   }
   document.getElementById("tbody").innerHTML = table;
 
-  let deleteBtn = document.getElementById("deleteAll");
   if (dataProduct.length > 0) {
     deleteBtn.innerHTML = `<button onclick="deleteAllProduct()" type="button" class="button" id="delete">
                     <span class="button__text">Delete ALL</span>
@@ -246,7 +246,6 @@ function showData() {
                         <line
                           style="
                             fill: none;
-                            stroke: #fff;
                             stroke-linecap: round;
                             stroke-linejoin: round;
                             stroke-width: 32px;
@@ -259,7 +258,6 @@ function showData() {
                         <line
                           style="
                             fill: none;
-                            stroke: #fff;
                             stroke-linecap: round;
                             stroke-linejoin: round;
                             stroke-width: 32px;
@@ -276,10 +274,7 @@ function showData() {
   }
 }
 
-showData();
-
-//delete product
-
+// delete product
 function deleteProduct(i) {
   let dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
   dataProduct.splice(i, 1);
@@ -287,11 +282,9 @@ function deleteProduct(i) {
   showData();
 }
 
-//delete all product
-
+// delete all products
 function deleteAllProduct() {
   localStorage.clear();
-  dataProduct = [];
   showData();
 }
 
@@ -303,3 +296,6 @@ discount.addEventListener("input", getTotal);
 
 // add event listener to the submit button
 submit.addEventListener("click", createProduct);
+
+// initial data rendering
+showData();
