@@ -41,7 +41,7 @@ function createProduct() {
   };
   dataProduct.push(product);
   localStorage.setItem("dataProduct", JSON.stringify(dataProduct));
-  alert("Product added successfully");
+
   // clear data after submit
   clearData();
   // show data in table
@@ -94,7 +94,7 @@ function showData() {
                   </button>
                 </td>
                 <td>
-                  <button type="button" class="button" id="delete">
+                  <button onclick="deleteProduct(${i} )" type="button" class="button" id="delete">
                     <span class="button__text">Delete</span>
                     <span class="button__icon"
                       ><svg
@@ -184,6 +184,115 @@ function showData() {
     }
   }
   document.getElementById("tbody").innerHTML = table;
+
+  let deleteBtn = document.querySelectorAll("#deleteAll")[0];
+  if (dataProduct.length == 0) {
+    deleteBtn.innerHTML = `<button onclick="deleteAll()" type="button" class="button" id="delete">
+                    <span class="button__text">Delete ALL</span>
+                    <span class="button__icon"
+                      ><svg
+                        class="svg"
+                        height="512"
+                        viewBox="0 0 512 512"
+                        width="512"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <title></title>
+                        <path
+                          d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320"
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                        ></path>
+                        <line
+                          style="
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-miterlimit: 10;
+                            stroke-width: 32px;
+                          "
+                          x1="80"
+                          x2="432"
+                          y1="112"
+                          y2="112"
+                        ></line>
+                        <path
+                          d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40"
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                        ></path>
+                        <line
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                          x1="256"
+                          x2="256"
+                          y1="176"
+                          y2="400"
+                        ></line>
+                        <line
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                          x1="184"
+                          x2="192"
+                          y1="176"
+                          y2="400"
+                        ></line>
+                        <line
+                          style="
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 32px;
+                          "
+                          x1="328"
+                          x2="320"
+                          y1="176"
+                          y2="400"
+                        ></line></svg
+                    ></span>
+                  </button> `;
+  } else {
+    deleteBtn.innerHTML = "";
+  }
+}
+
+showData();
+
+//delete product
+
+function deleteProduct(i) {
+  let dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
+  dataProduct.splice(i, 1);
+  localStorage.setItem("dataProduct", JSON.stringify(dataProduct));
+  showData();
+}
+
+//delete all product
+
+function deleteAllProduct() {
+  localStorage.clear();
+  dataProduct = [];
+  showData();
 }
 
 // call the getTotal function when the input values change
