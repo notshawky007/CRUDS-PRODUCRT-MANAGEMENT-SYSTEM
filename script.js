@@ -8,6 +8,8 @@ let count = document.getElementById("count");
 let category = document.getElementById("category");
 let submit = document.getElementById("submit");
 let deleteBtn = document.getElementById("deleteAll");
+let mood = "create";
+let temp;
 
 // get total price
 function getTotal() {
@@ -17,7 +19,6 @@ function getTotal() {
     total.style.backgroundColor = "green";
   } else {
     total.innerHTML = "";
-    total.style.backgroundColor = "red";
   }
 }
 
@@ -40,15 +41,41 @@ function createProduct() {
     count: count.value,
     category: category.value,
   };
-  //create product by count
-  if (product.count > 1) {
-    for (let i = 0; i < product.count; i++) {
+  // create product by count
+  if (mood === "create") {
+    if (product.count > 1) {
+      for (let i = 0; i < product.count; i++) {
+        dataProduct.push(product);
+      }
+    } else {
       dataProduct.push(product);
     }
-  } else {
-    dataProduct.push(product);
+  } else if (mood === "update") {
+    dataProduct[temp] = product;
+    mood = "create";
+    submit.innerHTML = `<button type="button" class="button" id="submit">
+                        <span class="button__text">Create</span>
+                        <span class="button__icon"
+                          ><svg
+                            class="svg"
+                            height="48"
+                            viewBox="0 0 48 48"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M35.3 12.7c-2.89-2.9-6.88-4.7-11.3-4.7-8.84 0-15.98 7.16-15.98 16s7.14 16 15.98 16c7.45 0 13.69-5.1 15.46-12h-4.16c-1.65 4.66-6.07 8-11.3 8-6.63 0-12-5.37-12-12s5.37-12 12-12c3.31 0 6.28 1.38 8.45 3.55l-6.45 6.45h14v-14l-4.7 4.7z"
+                            ></path>
+                            <path d="M0 0h48v48h-48z" fill="none"></path></svg
+                        ></span>
+                      </button>`;
+    window.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
+  // set data in local storage
   localStorage.setItem("dataProduct", JSON.stringify(dataProduct));
 
   // clear data after submit
@@ -71,6 +98,7 @@ function clearData() {
 
 // show data in table
 function showData() {
+  getTotal();
   let table = "";
   let dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
   if (dataProduct !== null) {
@@ -188,8 +216,7 @@ function showData() {
                     ></span>
                   </button>
                 </td>
-              </tr>
-              `;
+              </tr>`;
     }
   }
   document.getElementById("tbody").innerHTML = table;
@@ -254,6 +281,7 @@ function showData() {
                         <line
                           style="
                             fill: none;
+                            stroke: #fff;
                             stroke-linecap: round;
                             stroke-linejoin: round;
                             stroke-width: 32px;
@@ -266,6 +294,7 @@ function showData() {
                         <line
                           style="
                             fill: none;
+                            stroke: #fff;
                             stroke-linecap: round;
                             stroke-linejoin: round;
                             stroke-width: 32px;
@@ -309,21 +338,23 @@ function updateProduct(i) {
   getTotal();
   category.value = dataProduct[i].category;
   submit.innerHTML = `<button type="button" class="button" id="submit">
-                    <span class="button__text">Update</span>
-                    <span class="button__icon"
-                      ><svg
-                        class="svg"
-                        height="48"
-                        viewBox="0 0 48 48"
-                        width="48"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M35.3 12.7c-2.89-2.9-6.88-4.7-11.3-4.7-8.84 0-15.98 7.16-15.98 16s7.14 16 15.98 16c7.45 0 13.69-5.1 15.46-12h-4.16c-1.65 4.66-6.07 8-11.3 8-6.63 0-12-5.37-12-12s5.37-12 12-12c3.31 0 6.28 1.38 8.45 3.55l-6.45 6.45h14v-14l-4.7 4.7z"
-                        ></path>
-                        <path d="M0 0h48v48h-48z" fill="none"></path></svg
-                    ></span>
-                  </button>`;
+                        <span class="button__text">Update</span>
+                        <span class="button__icon"
+                          ><svg
+                            class="svg"
+                            height="48"
+                            viewBox="0 0 48 48"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M35.3 12.7c-2.89-2.9-6.88-4.7-11.3-4.7-8.84 0-15.98 7.16-15.98 16s7.14 16 15.98 16c7.45 0 13.69-5.1 15.46-12h-4.16c-1.65 4.66-6.07 8-11.3 8-6.63 0-12-5.37-12-12s5.37-12 12-12c3.31 0 6.28 1.38 8.45 3.55l-6.45 6.45h14v-14l-4.7 4.7z"
+                            ></path>
+                            <path d="M0 0h48v48h-48z" fill="none"></path></svg
+                        ></span>
+                      </button>`;
+  mood = "update";
+  temp = i;
 }
 
 // call the getTotal function when the input values change
@@ -334,6 +365,3 @@ discount.addEventListener("input", getTotal);
 
 // add event listener to the submit button
 submit.addEventListener("click", createProduct);
-
-// initial data rendering
-showData();
