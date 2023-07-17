@@ -40,7 +40,15 @@ function createProduct() {
     count: count.value,
     category: category.value,
   };
-  dataProduct.push(product);
+  //create product by count
+  if (product.count > 1) {
+    for (let i = 0; i < product.count; i++) {
+      dataProduct.push(product);
+    }
+  } else {
+    dataProduct.push(product);
+  }
+
   localStorage.setItem("dataProduct", JSON.stringify(dataProduct));
 
   // clear data after submit
