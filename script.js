@@ -313,7 +313,6 @@ function updateProduct(i) {
                     <span class="button__icon"
                       ><svg
                         class="svg"
-
                         height="48"
                         viewBox="0 0 48 48"
                         width="48"
@@ -325,6 +324,7 @@ function updateProduct(i) {
                         <path d="M0 0h48v48h-48z" fill="none"></path></svg
                     ></span>
                   </button>`;
+}
 
 // call the getTotal function when the input values change
 price.addEventListener("input", getTotal);
