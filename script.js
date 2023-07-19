@@ -357,6 +357,20 @@ function updateProduct(i) {
   temp = i;
 }
 
+//search product
+let searchMode = "title";
+function getSearchMode(id) {
+  let searchInput = document.getElementById("search");
+  if (id === "searchTitle") {
+    searchMode = "title";
+    searchInput.placeholder = "Search by title";
+  } else {
+    searchMode = "category";
+    searchInput.placeholder = "Search by category";
+  }
+  searchInput.focus();
+}
+
 // call the getTotal function when the input values change
 price.addEventListener("input", getTotal);
 taxes.addEventListener("input", getTotal);
