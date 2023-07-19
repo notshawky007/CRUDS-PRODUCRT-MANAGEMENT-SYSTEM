@@ -1,3 +1,4 @@
+// Retrieve elements from the DOM
 let title = document.getElementById("title");
 let price = document.getElementById("price");
 let taxes = document.getElementById("taxes");
@@ -11,7 +12,7 @@ let deleteBtn = document.getElementById("deleteAll");
 let mood = "create";
 let temp;
 
-// get total price
+// Function to calculate the total price
 function getTotal() {
   if (price.value !== "") {
     let result = +price.value + +taxes.value + +ads.value - +discount.value;
@@ -22,11 +23,11 @@ function getTotal() {
   }
 }
 
-// create new product
+// Function to create a new product
 function createProduct() {
   let dataProduct;
   if (localStorage.getItem("dataProduct") === null) {
-    // check if there is data in local storage
+    // Check if there is data in local storage
     dataProduct = [];
   } else {
     dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
@@ -41,7 +42,7 @@ function createProduct() {
     count: count.value,
     category: category.value,
   };
-  // create product by count
+  // Create product by count
   if (mood === "create") {
     if (product.count > 1) {
       for (let i = 0; i < product.count; i++) {
@@ -75,16 +76,16 @@ function createProduct() {
     });
   }
 
-  // set data in local storage
+  // Set data in local storage
   localStorage.setItem("dataProduct", JSON.stringify(dataProduct));
 
-  // clear data after submit
+  // Clear data after submit
   clearData();
-  // show data in table
+  // Show data in table
   showData();
 }
 
-// clear data after submit
+// Function to clear data after submit
 function clearData() {
   title.value = "";
   price.value = "";
@@ -96,7 +97,7 @@ function clearData() {
   category.value = "";
 }
 
-// show data in table
+// Function to show data in table
 function showData() {
   getTotal();
   let table = "";
@@ -311,7 +312,7 @@ function showData() {
   }
 }
 
-// delete product
+// Function to delete a product
 function deleteProduct(i) {
   let dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
   dataProduct.splice(i, 1);
@@ -319,13 +320,13 @@ function deleteProduct(i) {
   showData();
 }
 
-// delete all products
+// Function to delete all products
 function deleteAllProduct() {
   localStorage.clear();
   showData();
 }
 
-// update product
+// Function to update a product
 function updateProduct(i) {
   let dataProduct = JSON.parse(localStorage.getItem("dataProduct"));
   title.value = dataProduct[i].title;
@@ -357,7 +358,7 @@ function updateProduct(i) {
   temp = i;
 }
 
-//search product
+// Function to set the search mode
 let searchMode = "title";
 function getSearchMode(id) {
   let searchInput = document.getElementById("search");
@@ -371,11 +372,11 @@ function getSearchMode(id) {
   searchInput.focus();
 }
 
-// call the getTotal function when the input values change
+// Call the getTotal function when the input values change
 price.addEventListener("input", getTotal);
 taxes.addEventListener("input", getTotal);
 ads.addEventListener("input", getTotal);
 discount.addEventListener("input", getTotal);
 
-// add event listener to the submit button
+// Add event listener to the submit button
 submit.addEventListener("click", createProduct);
