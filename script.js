@@ -378,8 +378,7 @@ function getSearchMode(id) {
 function searchData(value) {
   let table = "";
   for (let i = 0; i < dataProduct.length; i++) {
-  if (searchMode == "title") {
-    
+    if (searchMode == "title") {
       if (dataProduct[i].title.toLowerCase().includes(value.toLowerCase())) {
         table += `<tr>
                 <td>${i + 1}</td>
@@ -497,9 +496,7 @@ function searchData(value) {
                 </td>
               </tr>`;
       }
-    }
-  } else {
- 
+    } else {
       if (dataProduct[i].category.toLowerCase().includes(value.toLowerCase())) {
         table += `<tr>
                 <td>${i + 1}</td>
@@ -618,7 +615,7 @@ function searchData(value) {
               </tr>`;
       }
     }
-}
+  }
 
   document.getElementById("tbody").innerHTML = table;
 }
